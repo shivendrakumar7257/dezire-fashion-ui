@@ -21,9 +21,9 @@ function Products() {
   const list = cat === "All" ? products : products.filter((p) => p.category === cat);
 
   return (
-    <section className="mx-auto max-w-[1400px] px-5 py-12 lg:px-10 lg:py-20">
+    <section className="mx-auto max-w-[1400px] px-5 py-12 lg:px-10 lg:py-20 animate-fade-up">
       <div className="flex flex-col gap-3">
-        <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Shop</p>
+        <p className="text-[11px] uppercase tracking-[0.4em] text-gold font-bold">Shop</p>
         <h1 className="font-display text-5xl lg:text-7xl">The Collection</h1>
         <p className="max-w-xl text-muted-foreground">
           {list.length} pieces · curated for the season. Quiet silhouettes in
@@ -31,14 +31,14 @@ function Products() {
         </p>
       </div>
 
-      <div className="mt-12 flex items-center justify-between border-y border-border py-4">
+      <div className="mt-12 flex items-center justify-between border-y border-border py-4 bg-[#F9F9F9] px-4 rounded-2xl">
         <div className="flex gap-1 overflow-x-auto">
           {cats.map((c) => (
             <button
               key={c}
               onClick={() => setCat(c)}
               className={[
-                "px-4 py-2 text-[11px] uppercase tracking-[0.25em] transition",
+                "px-4 py-2 text-[10px] uppercase tracking-[0.25em] transition font-bold rounded-full cursor-pointer",
                 cat === c ? "bg-ink text-cream" : "text-muted-foreground hover:text-foreground",
               ].join(" ")}
             >
@@ -46,7 +46,7 @@ function Products() {
             </button>
           ))}
         </div>
-        <button className="hidden lg:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground">
+        <button className="hidden lg:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground cursor-pointer">
           <SlidersHorizontal className="h-4 w-4" /> Filter & Sort
         </button>
       </div>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Search, Heart, ShoppingBag, User, Menu, X } from "lucide-react";
 
+import { useStore } from "@/hooks/use-store";
+
 const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
@@ -13,6 +15,10 @@ const nav = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { cart, wishlist, setCartOpen, setWishlistOpen } = useStore();
+
+  const totalCartItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const wishlistCount = wishlist.length;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,29 +29,10 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Announcement bar */}
-      <div className="bg-ink text-cream overflow-hidden">
-        <div className="marquee flex w-max gap-16 whitespace-nowrap py-2 text-[11px] tracking-[0.3em] uppercase">
-          {Array.from({ length: 2 }).map((_, i) => (
-            <div key={i} className="flex gap-16">
-              <span>Free Shipping on orders ₹1499+</span>
-              <span className="text-gold">Mega Fashion Sale — Up to 60% Off</span>
-              <span>New Drop · Autumn / Winter '26</span>
-              <span className="text-gold">Free Gift on orders ₹2999+</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <header
-        className={[
-          "sticky top-0 z-50 transition-all duration-500",
-          scrolled ? "glass shadow-soft" : "bg-transparent",
-        ].join(" ")}
-      >
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-5 lg:h-20 lg:px-10">
-          <Link to="/" className="font-display text-xl tracking-[0.2em] lg:text-[22px]">
-            DEZIRE<span className="text-gold">.</span>FASHION
+      <header className="sticky top-0 z-50 bg-background text-foreground shadow-sm border-b border-border">
+        <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-5 lg:h-20 lg:px-10">
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/logo.png.jpeg" alt="Dezire Fashion" className="h-16 lg:h-20 w-auto object-contain mix-blend-multiply" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-10">
@@ -65,8 +52,12 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-1 lg:gap-2">
             <IconBtn label="Search"><Search className="h-[18px] w-[18px]" /></IconBtn>
-            <IconBtn label="Wishlist"><Heart className="h-[18px] w-[18px]" /></IconBtn>
-            <IconBtn label="Cart" badge={3}><ShoppingBag className="h-[18px] w-[18px]" /></IconBtn>
+            <IconBtn label="Wishlist" onClick={() => setWishlistOpen(true)} badge={wishlistCount > 0 ? wishlistCount : undefined}>
+              <Heart className="h-[18px] w-[18px]" />
+            </IconBtn>
+            <IconBtn label="Cart" onClick={() => setCartOpen(true)} badge={totalCartItems > 0 ? totalCartItems : undefined}>
+              <ShoppingBag className="h-[18px] w-[18px]" />
+            </IconBtn>
             <Link
               to="/login"
               aria-label="Account"
@@ -77,7 +68,7 @@ export function SiteHeader() {
             <button
               aria-label="Menu"
               onClick={() => setOpen(true)}
-              className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-foreground/5"
+              className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-foreground/5 cursor-pointer"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -117,11 +108,12 @@ export function SiteHeader() {
   );
 }
 
-function IconBtn({ children, label, badge }: { children: React.ReactNode; label: string; badge?: number }) {
+function IconBtn({ children, label, badge, onClick }: { children: React.ReactNode; label: string; badge?: number; onClick?: () => void }) {
   return (
     <button
       aria-label={label}
-      className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-foreground/5"
+      onClick={onClick}
+      className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-foreground/5 cursor-pointer"
     >
       {children}
       {badge ? (

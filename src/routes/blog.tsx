@@ -3,8 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
-import hero1 from "@/assets/hero-1.jpg";
-import hero4 from "@/assets/hero-4.jpg";
+import hero1 from "@/assets/hero-1.png";
+import hero4 from "@/assets/hero-4.png";
 import campaign from "@/assets/campaign.jpg";
 
 export const Route = createFileRoute("/blog")({

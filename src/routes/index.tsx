@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowRight, ArrowUpRight, Gift, Sparkles, Mail, Quote } from "lucide-react";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-import hero3 from "@/assets/hero-3.jpg";
-import hero4 from "@/assets/hero-4.jpg";
+import hero1 from "@/assets/hero-1.png";
+import hero2 from "@/assets/hero-2.png";
+import hero3 from "@/assets/hero-3.png";
+import hero4 from "@/assets/hero-4.png";
 import campaign from "@/assets/campaign.jpg";
 import catMen from "@/assets/cat-men.jpg";
 import catWomen from "@/assets/cat-women.jpg";
@@ -40,11 +40,6 @@ function Home() {
       <Hero />
       <Categories />
       <Trending />
-      <CampaignBanner />
-      <BestSellers />
-      <Reviews />
-      <BlogPreview />
-      <Newsletter />
     </>
   );
 }
@@ -57,7 +52,7 @@ function Hero() {
   }, []);
 
   return (
-    <section className="relative -mt-[88px] h-[100svh] min-h-[640px] w-full overflow-hidden lg:-mt-[112px]">
+    <section className="relative h-[calc(100svh-64px)] min-h-[500px] w-full overflow-hidden lg:h-[calc(100svh-80px)] lg:min-h-[600px]">
       {slides.map((s, idx) => (
         <div
           key={idx}
@@ -67,7 +62,7 @@ function Hero() {
           <img
             src={s.image}
             alt=""
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-top"
             loading={idx === 0 ? "eager" : "lazy"}
             fetchPriority={idx === 0 ? "high" : "auto"}
           />
@@ -76,23 +71,7 @@ function Hero() {
       ))}
 
       {/* Sale ribbon (rotating) */}
-      <div className="absolute right-6 top-28 z-10 hidden lg:block">
-        <div className="relative h-32 w-32">
-          <div className="absolute inset-0 animate-spin-slow">
-            <svg viewBox="0 0 100 100" className="h-full w-full fill-gold text-ink">
-              <defs>
-                <path id="circ" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
-              </defs>
-              <text className="text-[11px] uppercase tracking-[0.3em] font-medium" fill="currentColor">
-                <textPath href="#circ">MEGA SALE · LIVE · MEGA SALE · LIVE · </textPath>
-              </text>
-            </svg>
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Sparkles className="h-7 w-7 text-gold" />
-          </div>
-        </div>
-      </div>
+
 
       <div className="relative z-10 flex h-full max-w-[1400px] mx-auto px-5 lg:px-10 items-end pb-20 lg:items-center lg:pb-0">
         <div className="text-cream max-w-2xl animate-fade-up">
@@ -142,10 +121,10 @@ function Hero() {
       </div>
 
       {/* Gift badge */}
-      <div className="absolute left-6 top-28 z-10 hidden lg:block">
-        <div className="glass-dark flex items-center gap-3 rounded-full px-5 py-3 text-cream">
-          <Gift className="h-4 w-4 text-gold" />
-          <p className="text-[11px] uppercase tracking-[0.25em]">Free Gift · Orders ₹2999+</p>
+      <div className="absolute left-4 lg:left-6 top-8 z-10">
+        <div className="glass-dark flex items-center gap-3 rounded-full px-4 lg:px-5 py-2 lg:py-3 text-cream">
+          <Gift className="h-4 w-4 text-gold shrink-0" />
+          <p className="text-[9px] lg:text-[11px] uppercase tracking-[0.15em] lg:tracking-[0.25em] whitespace-nowrap">Free Gift · On Every Orders</p>
         </div>
       </div>
 
@@ -180,7 +159,7 @@ function Categories() {
     <section className="mx-auto max-w-[1400px] px-5 py-24 lg:px-10 lg:py-32">
       <div className="flex items-end justify-between gap-6">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Curated</p>
+
           <h2 className="mt-3 font-display text-5xl lg:text-6xl">Shop by Category</h2>
         </div>
         <Link to="/products" className="hidden lg:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-muted-foreground hover:text-foreground gold-underline">
@@ -225,7 +204,7 @@ function Trending() {
       <div className="flex items-end justify-between gap-6">
         <div>
           <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Trending Now</p>
-          <h2 className="mt-3 font-display text-5xl lg:text-6xl">The Edit</h2>
+          <h2 className="mt-3 font-display text-5xl lg:text-6xl">products</h2>
         </div>
         <Link to="/products" className="hidden lg:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-muted-foreground hover:text-foreground gold-underline">
           Shop all <ArrowRight className="h-3 w-3" />
